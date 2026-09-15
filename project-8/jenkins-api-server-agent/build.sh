@@ -1,0 +1,1 @@
+sudo CACHE_BUST=$(date +%s) docker compose up -d --build jenkins-agent

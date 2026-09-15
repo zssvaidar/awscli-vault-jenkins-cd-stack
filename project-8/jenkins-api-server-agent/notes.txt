@@ -1,0 +1,58 @@
+docker compose build -d --no-cache jenkins-agent
+
+sudo docker compose build --build-arg CACHE_BUST=$(date +%s) jenkins-agent
+
+sudo CACHE_BUST=$(date +%s) docker compose up -d --build jenkins-agent
+
+sudo chown -R 1000:1000 ./jenkins_home
+
+
+
+
+
+119bbed37a85e53ee0c9f8db83e562eceb
+
+curl -X POST \
+  "http://localhost:8080/createItem?name=my-project" \
+  --user "admin:1144ab977c2e7fd968da0a220c8c745c8c" \
+  --header "Content-Type: application/xml" \
+  --data-binary "@config.xml"
+
+curl -X POST   "http://localhost:8080/createItem?name=my-project"   --user "admin:1115e4ab45eb65dce0673afba0b19a2746"   --header "Content-Type: application/xml"   --data-binary "config.xml"
+
+sudo CACHE_BUST=$(date +%s) docker compose up --build jenkins-agent
+
+curl -X POST \
+  "http://localhost:8080/job/my-project/doDelete" \
+  --user "admin:119bbed37a85e53ee0c9f8db83e562eceb"
+
+
+  curl -X POST \
+  "http://localhost:8080/credentials/store/system/domain/_/createCredentials" \
+  --user "admin:YOUR_API_TOKEN" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  --data-urlencode 'json={
+    "": "0",
+    "credentials": {
+      "scope": "GLOBAL",
+      "id": "vault-role-id",
+      "description": "Vault AppRole Role ID",
+      "secret": "YOUR_ROLE_ID",
+      "$class": "org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl"
+    }
+  }'
+
+  curl -X POST \
+  "http://localhost:8080/credentials/store/system/domain/_/createCredentials" \
+  --user "admin:YOUR_API_TOKEN" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  --data-urlencode 'json={
+    "": "0",
+    "credentials": {
+      "scope": "GLOBAL",
+      "id": "vault-secret-id",
+      "description": "Vault AppRole Secret ID",
+      "secret": "YOUR_SECRET_ID",
+      "$class": "org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl"
+    }
+  }'

@@ -1,0 +1,30 @@
+jenkins:
+  systemMessage: "Jenkins Controller managed with Configuration as Code"
+
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "${JENKINS_ADMIN_ID}"
+          password: "${JENKINS_ADMIN_PASSWORD}"
+
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+
+  nodes:
+    - permanent:
+        name: "docker-agent"
+        remoteFS: "/home/jenkins/agent"
+        numExecutors: 2
+        labelString: "docker deployment"
+        mode: NORMAL
+        retentionStrategy:
+          always: {}
+        launcher:
+          inbound:
+            webSocket: true
+            workDirSettings:
+              disabled: false
+              internalDir: "remoting"
+              workDirPath: "/home/jenkins/agent"
