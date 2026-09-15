@@ -1,17 +1,17 @@
+# this Dockerfile lets download plugins needed for future deployments 
+jenkins-api-server-agent/controller/Dockerfile
+
+
+docker compose up jenkins-controller
+
 docker compose build -d --no-cache jenkins-agent
 
 sudo docker compose build --build-arg CACHE_BUST=$(date +%s) jenkins-agent
 
 sudo CACHE_BUST=$(date +%s) docker compose up -d --build jenkins-agent
 
-sudo chown -R 1000:1000 ./jenkins_home
-
-
-
-
-
-119bbed37a85e53ee0c9f8db83e562eceb
-
+# required admin key to create jenkins free style projects from xml file
+# this speeds up project creation 
 curl -X POST \
   "http://localhost:8080/createItem?name=my-project" \
   --user "admin:1144ab977c2e7fd968da0a220c8c745c8c" \

@@ -1,0 +1,20 @@
+Vault AWS secrets engine
+│
+├── aws/config/root
+│      └── AWS credential used by Vault
+│
+├── aws/roles/jenkins
+│      └── assumes AWS IAM role: JenkinsRole
+│
+├── aws/roles/deployer
+│      └── assumes AWS IAM role: DeployerRole
+│
+└── aws/roles/read-only
+       └── assumes AWS IAM role: ReadOnlyRole
+
+Right now we
+ - create jenkins user
+ - create AssumeSet1Role with ec2,rds access
+ - assign jenkins role AssumeSet1Role
+
+
