@@ -1,0 +1,26 @@
+import { defineIndex } from 'twenty-sdk/define';
+
+import {
+  SYNC_LOG_ENTRY_ENTITY_EXTERNAL_KEY_INDEX_ENTITY_TYPE_FIELD_INDEX_ID,
+  SYNC_LOG_ENTRY_ENTITY_EXTERNAL_KEY_INDEX_EXTERNAL_KEY_FIELD_INDEX_ID,
+  SYNC_LOG_ENTRY_ENTITY_EXTERNAL_KEY_INDEX_ID,
+  SYNC_LOG_ENTRY_ENTITY_TYPE_FIELD_ID,
+  SYNC_LOG_ENTRY_EXTERNAL_KEY_FIELD_ID,
+  SYNC_LOG_ENTRY_UNIVERSAL_IDENTIFIER,
+} from 'src/constants/order-service-identifiers';
+
+export default defineIndex({
+  universalIdentifier: SYNC_LOG_ENTRY_ENTITY_EXTERNAL_KEY_INDEX_ID,
+  objectUniversalIdentifier: SYNC_LOG_ENTRY_UNIVERSAL_IDENTIFIER,
+  isUnique: true,
+  fields: [
+    {
+      universalIdentifier: SYNC_LOG_ENTRY_ENTITY_EXTERNAL_KEY_INDEX_ENTITY_TYPE_FIELD_INDEX_ID,
+      fieldUniversalIdentifier: SYNC_LOG_ENTRY_ENTITY_TYPE_FIELD_ID,
+    },
+    {
+      universalIdentifier: SYNC_LOG_ENTRY_ENTITY_EXTERNAL_KEY_INDEX_EXTERNAL_KEY_FIELD_INDEX_ID,
+      fieldUniversalIdentifier: SYNC_LOG_ENTRY_EXTERNAL_KEY_FIELD_ID,
+    },
+  ],
+});

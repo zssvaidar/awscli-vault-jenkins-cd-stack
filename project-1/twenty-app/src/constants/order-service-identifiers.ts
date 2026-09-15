@@ -1,0 +1,103 @@
+// Order
+export const ORDER_UNIVERSAL_IDENTIFIER = 'b998c777-4a17-45ce-b90d-8267c9f2b804';
+export const ORDER_ORDER_NUMBER_FIELD_ID = '5c65887f-621f-49db-9543-aa7361632701';
+export const ORDER_STATUS_FIELD_ID = '36345ef5-28f9-4d06-96d5-97a946938091';
+export const ORDER_TOTAL_AMOUNT_FIELD_ID = '795640c8-6fba-48b0-a28b-6044b7309a98';
+export const ORDER_PLACED_AT_FIELD_ID = 'c204d309-367d-4704-96ae-be3c80475444';
+export const ORDER_ORDER_ITEMS_FIELD_ID = '40cb1d90-6c72-44ca-b0d8-edb75b12fea1';
+export const ORDER_DELIVERY_FIELD_ID = '9a1e9730-a3b5-4cbe-afb3-d5d2478a178b';
+export const ORDER_CUSTOMER_FIELD_ID = 'f7714c17-9793-447a-8472-f2c2f3808a80';
+export const ORDER_SOURCE_FIELD_ID = '56162628-c0da-4891-935b-f206b070388e';
+export const ORDER_CANCELLED_AT_FIELD_ID = '98b3c5bd-48e4-4e26-922a-cb465f9049b0';
+export const ORDER_CANCEL_REASON_FIELD_ID = 'ecc47ff0-e309-4529-9404-002722b810a8';
+export const ORDER_REFUNDED_AMOUNT_FIELD_ID = '9e2da32c-2bcc-4c90-b76c-dcab651fb494';
+export const ORDER_REFUNDED_AT_FIELD_ID = '7e5eae3b-9a8e-478c-8a37-943c6b9ea37d';
+export const ORDER_PARTIALLY_REFUNDED_AMOUNT_FIELD_ID = 'f60ffa3d-0267-4587-a92d-17d83a8dd45b';
+
+// Order.status options — ids kept stable from the original PENDING/PROCESSING/CONFIRMED/CANCELLED
+// options, relabeled to match specs-2.md's actual lifecycle (CREATED/PAID/CANCELLED/REFUNDED).
+// The old SHIPPED/DELIVERED options are dropped: shipping state lives on Delivery, not Order.
+export const ORDER_STATUS_OPTION_IDS = {
+  CREATED: '5262213d-a611-4374-8a27-759703061927',
+  PAID: '26408fad-5ec2-41a2-9b64-a33a56444ccb',
+  REFUNDED: 'cffd5cb4-fd83-46e8-a0ad-cfc077db40d9',
+  CANCELLED: '720c2028-97fb-43c2-a166-718ee71e901d',
+} as const;
+
+export const ORDER_SOURCE_OPTION_IDS = {
+  WEB: '1b884f6b-878b-43a9-a9d9-a036452c195e',
+  MOBILE: 'b89c074b-14c7-4330-b918-7083920be58a',
+  POS: 'eb313a94-405a-4ea5-8cbe-97dcc1ca7fa0',
+  API: '283ea8e5-596a-42d9-93d8-5f327099583d',
+} as const;
+
+// Order Item
+export const ORDER_ITEM_UNIVERSAL_IDENTIFIER = '52dc23a3-3500-4829-b533-43e88795383c';
+export const ORDER_ITEM_PRODUCT_NAME_FIELD_ID = '48da4f52-2eb1-47e0-bf11-1289caa1c06c';
+export const ORDER_ITEM_SKU_FIELD_ID = '2d3bbabe-6b46-4372-87d6-07a1ac1f97da';
+export const ORDER_ITEM_QUANTITY_FIELD_ID = '6a235d16-9011-4b61-84ad-fd7518afe804';
+export const ORDER_ITEM_UNIT_PRICE_FIELD_ID = '24b2bc00-4f2a-4eae-8ba4-01350dfc6cc7';
+export const ORDER_ITEM_LINE_TOTAL_FIELD_ID = '87480d1f-e1af-4479-aaad-1a13a4fc601b';
+export const ORDER_ITEM_ORDER_FIELD_ID = '3e4c2eea-bcb1-46f0-96a9-6aa94613a955';
+
+// Delivery
+export const DELIVERY_UNIVERSAL_IDENTIFIER = '2744d20a-aa04-4ff3-84cf-b9045f93323c';
+export const DELIVERY_TRACKING_NUMBER_FIELD_ID = '23d0c681-f2b5-422f-8eef-9ba7612c908b';
+export const DELIVERY_CARRIER_FIELD_ID = 'a8ad6685-dc7e-4233-94de-d582d51f1305';
+export const DELIVERY_STATUS_FIELD_ID = '7c359480-6fa3-49f6-a9ce-1bd3d94262ae';
+export const DELIVERY_SHIPPED_AT_FIELD_ID = '095cf294-576c-40a7-afb1-85dd76821256';
+export const DELIVERY_DELIVERED_AT_FIELD_ID = '6a8c8aab-88c8-4760-8a46-923e47ec4d6e';
+export const DELIVERY_ADDRESS_FIELD_ID = 'c9a9e349-6b58-45eb-a599-1cb0e620283c';
+export const DELIVERY_ORDER_FIELD_ID = '048afcf9-7dff-41aa-b4e7-28f6663a20af';
+export const DELIVERY_DELIVERY_ID_FIELD_ID = '770a20b0-c4cb-44c0-bab9-350b083b09ee';
+export const DELIVERY_TRACKING_URL_FIELD_ID = 'b6e845dd-558a-4f81-9297-32ceaa54509c';
+export const DELIVERY_WAREHOUSE_CODE_FIELD_ID = '70daaf78-3988-4a5d-8129-c802a0617696';
+export const DELIVERY_ESTIMATED_DELIVERY_AT_FIELD_ID = '406112f1-bc6e-4e3d-b9b6-76bfcad7657a';
+
+// Delivery.status options — IN_TRANSIT relabeled to SHIPPED (same id) to match specs-2.md's
+// literal "status": "SHIPPED" example.
+export const DELIVERY_STATUS_OPTION_IDS = {
+  PENDING: '8add6907-923f-4c25-a776-100a01c6309d',
+  SHIPPED: '2c8d08c7-07e4-447f-9677-8f7cf0f46a54',
+  DELIVERED: 'f3c30d0a-b9cb-458a-b167-9a595d75e420',
+  FAILED: 'ed6bccaf-ac22-4b5c-b3da-ec1752b87068',
+  RETURNED: '7cce401a-793c-4375-9843-8f95f7a94b4f',
+} as const;
+
+// Person (standard object) — externalCustomerId FK + reverse orders relation
+export const PERSON_EXTERNAL_CUSTOMER_ID_FIELD_ID = '0fee7cb2-1832-4919-b25f-d059dafbc2d6';
+export const PERSON_ORDERS_FIELD_ID = '628eb83f-dc75-4252-8d93-584a4047dced';
+
+// Sync log entry (idempotency ledger, specs-2.md §4)
+export const SYNC_LOG_ENTRY_UNIVERSAL_IDENTIFIER = '857f1847-49c3-43c3-9f79-e0959b404724';
+export const SYNC_LOG_ENTRY_EVENT_ID_FIELD_ID = '333b5eba-ca0c-44c0-8a12-14cfec8fcee0';
+export const SYNC_LOG_ENTRY_EVENT_TYPE_FIELD_ID = '9f4324c4-6aa1-4185-80d3-10b7e57216ba';
+export const SYNC_LOG_ENTRY_ENTITY_TYPE_FIELD_ID = '96496214-6996-4b40-b63e-3f9ec492daba';
+export const SYNC_LOG_ENTRY_EXTERNAL_KEY_FIELD_ID = 'b33bc1d1-a26a-4b9f-adb1-81742cf9212e';
+export const SYNC_LOG_ENTRY_TWENTY_ID_FIELD_ID = '872035f9-254e-4f68-a46a-24a3937b5af0';
+export const SYNC_LOG_ENTRY_STATUS_FIELD_ID = 'f5266b29-7cbe-4ef6-9ac8-09b14339cffa';
+export const SYNC_LOG_ENTRY_ATTEMPTS_FIELD_ID = '021eeb87-672d-4120-bb48-902b9f360104';
+export const SYNC_LOG_ENTRY_LAST_ERROR_FIELD_ID = 'd2e05b07-dd97-4812-b5c6-b030c9e47093';
+export const SYNC_LOG_ENTRY_ENTITY_EXTERNAL_KEY_INDEX_ID = '2693595c-f52f-4453-a4d5-579940d15d9f';
+export const SYNC_LOG_ENTRY_ENTITY_EXTERNAL_KEY_INDEX_ENTITY_TYPE_FIELD_INDEX_ID =
+  '22620750-b56f-4372-8b3c-3653705a03ea';
+export const SYNC_LOG_ENTRY_ENTITY_EXTERNAL_KEY_INDEX_EXTERNAL_KEY_FIELD_INDEX_ID =
+  '6b17d04e-e478-44b2-93e6-0629c41bfb8c';
+
+export const SYNC_LOG_ENTITY_TYPE_OPTION_IDS = {
+  PERSON: 'a45e4a4e-881c-4614-9a64-857a5ec66b33',
+  ORDER: '7e4b18af-ac35-4241-bd16-d8db6567dba2',
+  ORDER_ITEM: '70c0f088-d858-4897-95a0-7f9d1ddd6f28',
+  DELIVERY: 'abb4a76c-844e-45f6-969e-61ad83711bf2',
+} as const;
+
+export const SYNC_LOG_STATUS_OPTION_IDS = {
+  PENDING: '9ffe1be8-9770-4fa9-990a-32d085872377',
+  SUCCESS: '95c8279f-52d7-48da-b6cd-7bb54a234161',
+  PARTIAL: 'a6b0d556-9f56-4ce6-a548-29cc60c0da23',
+  FAILED: '2bbba1bb-e636-4af2-8ffe-1f5f3424d5fd',
+} as const;
+
+// Logic functions
+export const SEED_ORDER_SERVICE_DATA_LOGIC_FUNCTION_ID = 'abfeef31-797d-4609-beda-e125b8efc2d9';
+export const SYNC_EVENTS_LOGIC_FUNCTION_ID = '3078af92-ad09-41bb-b8ad-8228d750591f';
