@@ -1,0 +1,67 @@
+services:
+  # Redis
+  redis:
+    image: redis:7-alpine
+    container_name: medusa_redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - medusa_network
+
+  # Medusa Server
+  # Runs the Medusa backend application and the admin dashboard.
+  medusa:
+    build: .
+    container_name: medusa_backend
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "${MEDUSA_PORT}:9000"
+      - "${MEDUSA_ADMIN_PORT}:5173"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=redis://redis:6379
+    env_file:
+      - apps/backend/.env
+    volumes:
+      - .:/server
+      - /server/node_modules
+      - /server/apps/backend/node_modules
+    networks:
+      - medusa_network
+
+  # Storefront
+  # Runs the Next.js Starter Storefront.
+  storefront:
+    build: .
+    container_name: medusa_storefront
+    restart: unless-stopped
+    depends_on:
+      - medusa
+    ports:
+      - "${STOREFRONT_PORT}:8000"
+    environment:
+      - NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://medusa:9000
+    env_file:
+      - apps/storefront/.env
+    volumes:
+      - .:/server
+      - /server/ 
+      - /server/apps/storefront/node_modules
+      - /server/apps/storefront/.next
+    entrypoint: ["./start-storefront.sh"]
+    networks:
+      - medusa_network
+
+networks:
+  medusa_network:
+    driver: bridge

@@ -1,0 +1,18 @@
+sudo -u postgres psql -f populate-db.sql
+\dn
+\c
+
+ALTER ROLE medusa SET search_path TO public;
+
+sudo -u postgres psql -f populate-db2.sql
+
+npx medusa user -e admin@admin.com -p 123
+
+
+psql -U postgres -d medusa-store \
+  -v USERNAME='medusa' \
+  -v SCHEMA_NAME='medusa' \
+  -f permissions.sql
+
+sudo -u postgres psql -f set_user.sql
+psql -h localhost -U medusa -d ecom -f set_schema.sql
