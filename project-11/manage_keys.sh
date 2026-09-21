@@ -2,13 +2,14 @@ export VAULT_ADDR="http://127.0.0.1:8200"
 
 
 VAULT_KV_PATH="${VAULT_KV_PATH:-secret/jenkins}"
-STATE_FILE=state/$Purpose.env
+DATE="$(date +%Y-%m-%d)"
 
-DATE_NAME="$(date +%Y-%m-%d)_${NAME}"
+DATE_NAME="$DATE_${NAME}"
 KEY_DIR="$SCRIPT_DIR/credentials/$DATE_NAME"
 SCRIPT_DIR=$(pwd)
 
 [[ "$NAME" =~ ^(create|delete|keys|ssm|network)$ ]] && { echo "error: invalid name '$NAME'" >&2; exit 1; }
+[[ -f "$STATE_FILE" ]] || { echo "no state file $STATE_FILE"; exit 1; }
 
 statefile() {
     {

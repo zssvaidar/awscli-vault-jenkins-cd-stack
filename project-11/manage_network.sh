@@ -1,6 +1,8 @@
 
-CIDR="${2:-10.0.0.0/16}"
+CIDR="${CIDR:-10.0.0.0/16}"
 DATE="$(date +%Y-%m-%d)"
+
+[[ -f "$STATE_FILE" ]] || { echo "no state file $STATE_FILE"; exit 1; }
 
 statefile() {
     cat >> "$STATE_FILE" <<EOF

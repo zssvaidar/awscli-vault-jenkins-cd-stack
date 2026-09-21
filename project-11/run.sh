@@ -12,7 +12,8 @@ set_root
 whoami
 
 Purpose="${PURPOSE:-testing}"
-[[ -f "state/$STATE_FILE.env" ]] || { echo "no state file $STATE_FILE"; exit 1; }
+STATE_FILE=state/$Purpose.env
+[[ -f "$STATE_FILE" ]] || { echo "no state file $STATE_FILE"; exit 1; }
 AWS_REGION="${AWS_REGION:-ap-northeast-1}"
 
 case "$1" in
