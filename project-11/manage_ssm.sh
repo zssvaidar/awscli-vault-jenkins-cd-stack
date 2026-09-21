@@ -12,7 +12,7 @@ EOF
     echo "State saved to $STATE_FILE"
 }
 
-[[ -f "$STATE_FILE" ]] || { echo "no state file $STATE_FILE"; exit 1; }
+[[ -f "state/$STATE_FILE.env" ]] || { echo "no state file $STATE_FILE"; exit 1; }
 aws iam get-role --role-name "$ROLE_NAME" >/dev/null 2>&1 || { echo "no IAM role $ROLE_NAME"; exit 1; }
 
 create() {
