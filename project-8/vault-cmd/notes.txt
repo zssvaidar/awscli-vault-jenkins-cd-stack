@@ -1,0 +1,43 @@
+vault server -config=config/vault.hcl
+
+
+
+# Setting vault configuration for handling aws credentials
+vault read aws/creds/jenkins
+
+vault write aws/roles/jenkins \
+    credential_type="assumed_role" \
+    role_arns="arn:aws:iam::NNNNNNNNNNNN:role/jenkins-role"
+
+vault secrets enable aws
+
+# Jenkins user acces_key and secret_key
+vault write aws/config/root \
+    access_key="$AWS_ACCESS_KEY_ID" \
+    secret_key="$AWS_SECRET_ACCESS_KEY" \
+    region="ap-northeast-1"
+
+vault write aws/roles/jenkins \
+    credential_type="assumed_role" \
+    role_arns="arn:aws:iam::NNNNNNNNNNNN:role/jenkins-role"
+
+# after running aws/creds/jenkins starts working
+# vault read aws/creds/jenkins
+# gives temporary aws credentials
+
+# below is how to generate temporary aws credentials
+
+vault auth enable approle
+vault write auth/approle/role/jenkins \
+    token_policies="jenkins" \
+    token_ttl="1h" \
+    token_max_ttl="4h"
+
+vault read auth/approle/role/jenkins/role-id
+vault write auth/approle/role/jenkins/secret-id
+
+# with this we can manualy generate temporary vault token
+# temporary vault token gives access to aws/creds/jenkins
+vault write auth/approle/login \
+  role_id="$ROLE_ID" \
+  secret_id="$SECRET_ID"

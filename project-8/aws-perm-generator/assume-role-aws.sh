@@ -18,6 +18,12 @@
 # if you edit role the user that assumed will have more capabilities
 # if i assume role and policy changes, token is invalid
 
+source "common/init.sh"
+source "config/.env"
+
+unset_aws
+set_jenkins
+
 # \1 create user jenkins
 # \2 create role for user
 # \3 add ec2, s3, rds access to role

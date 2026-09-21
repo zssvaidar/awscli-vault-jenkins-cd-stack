@@ -1,0 +1,18 @@
+
+
+sudo docker build -t zssvaid/node-app:0.1 containers/node-app
+sudo docker push zssvaid/node-app:0.1
+
+
+vault policy write ec2-agents-read wrapper/jenkins-ec2-agents-policy.hcl
+
+vault policy write jenkins wrapper/policies/jenkins-vault.hcl
+
+vault secrets enable -path=secret kv-v2
+
+
+vault auth enable approle
+vault write auth/approle/role/jenkins \
+    token_policies="jenkins" \
+    token_ttl="1h" \
+    token_max_ttl="4h"

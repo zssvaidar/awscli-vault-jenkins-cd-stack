@@ -1,0 +1,22 @@
+services:
+  vault:
+    image: hashicorp/vault:1.20
+    container_name: vault2
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./config:/vault/config:ro
+      - ./policies:/vault/policies:ro
+      - ./init:/vault/init:ro
+      - ./data:/vault/data
+    cap_add:
+      - IPC_LOCK
+    command: vault server -config=/vault/config/vault.hcl
+    healthcheck:
+      test: ["CMD", "vault", "status"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  vault-data:

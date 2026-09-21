@@ -13,12 +13,34 @@ export AWS_ARN_USER_JENKINS
 ROLE_NAME=jenkins-role
 POLICY_NAME=trust-policy
 RESOURCE_SET=set_1
+
+
+echo "detaching policies from $ROLE_NAME"
+for policies in $( \
+    aws iam list-attached-role-policies \
+    --role-name $ROLE_NAME \
+    --query 'AttachedPolicies[*].PolicyArn' \
+    --output text \
+); do
+
+    aws iam detach-role-policy \
+        --role-name $ROLE_NAME \
+        --policy-arn $policies
+    echo detached $policies from $ROLE_NAME
+
+    done
+
+aws iam delete-role --role-name $ROLE_NAME
+echo "deteted role $ROLE_NAME"
+
+
 envsubst '${AWS_ARN_USER_JENKINS}' < templates/trust-policy.json.template > $POLICY_NAME.json
 
 create_role "$ROLE_NAME" "$POLICY_NAME" "$RESOURCE_SET"
 
 
 export AWS_ARN_ROLE_JENKINS
+
 
 USER=jenkins
 POLICY_NAME_LABEL=AssumeSet1Role

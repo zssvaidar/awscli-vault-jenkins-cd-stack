@@ -1,0 +1,78 @@
+sudo nano /etc/postgresql/16/main/postgresql.conf
+sudo nano /etc/postgresql/16/main/pg_hba.conf
+sudo systemctl restart postgresql
+
+sudo -u postgres psql -c "SHOW config_file;"
+listen_addresses = '*'
+
+sudo -u postgres psql -c "SHOW hba_file;"
+
+
+eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZjNTQ2ZjIyLTk5ZGMtNGY3Ny1iMTliLWI4ZTI3Y2IzZWE5ZiJ9.eyJzdWIiOiJmZDAxMzcwNy02M2JhLTQzYmEtODM3NC1iMWIxYjQzNjFjYmMiLCJ0eXBlIjoiQVBJX0tFWSIsIndvcmtzcGFjZUlkIjoiZmQwMTM3MDctNjNiYS00M2JhLTgzNzQtYjFiMWI0MzYxY2JjIiwiaWF0IjoxNzg4NjI3NzQxLCJleHAiOjQ5NDIyMjc3NDAsImp0aSI6IjdjMjgzNGMxLWIyODMtNDAyNi1iMGRkLWRjYmVhMjdkMGUxNSJ9.fzEE2BJnxWyJSwEbh_VZscpP1DC3k5Ar9OQEbw_huDCTTX8kHkzy95lufvxoSqTOvRBwAcwtNwlDmB2bNqbcug
+
+sudo lsof -iTCP:6379 -sTCP:LISTEN
+
+export TWENTY_API_URL=http://localhost:3000
+export TWENTY_API_KEY=$(node -e "console.log(require(require('os').homedir()+'/.twenty/config.json').remotes.localhost.apiKey)")
+yarn test src/__tests__/crm-sync.integration-test.ts
+
+export TWENTY_API_URL=http://localhost:3000
+export TWENTY_API_KEY=$(node -e "console.log(require(require('os').homedir()+'/.twenty/config.json').remotes.localhost.apiKey)")
+yarn twenty dev:function:exec -u 43d24699-d73e-437b-8fb7-bba0dfde0a40
+
+
+
+import { defineObject, defineViewField, FieldType } from 'twenty-sdk/define';
+
+// defineObject.fi
+export default defineObject( {
+  
+  nameSingular: 'order',
+  namePlural: 'orders',
+  labelSingular: 'Order',
+  labelPlural: 'Orders',
+  universalIdentifier: '22222222-2222-4222-8222-222222222220',
+  fields: [
+    {
+      name: 'orderNumber',
+      label: 'Order Number',
+      type: FieldType.TEXT,
+      universalIdentifier: '22222222-2222-4222-8222-222222222221',
+    },
+    {
+      universalIdentifier: '706a2b08-8284-4715-8bc0-922a99cb26af',
+      name: 'status',
+      label: 'Status',
+      type: FieldType.ARRAY,
+      defaultValue: ['vip', 'returning'] 
+    },
+    {
+      universalIdentifier: '22222222-2222-4222-8222-222222222226',
+      name: 'state',
+      label: 'State',
+      type: FieldType.ARRAY,
+      defaultValue: ['returning'] 
+    },
+
+    {
+      universalIdentifier: '22222222-2222-4222-8222-222222222228',
+      name: 'statee',
+      label: 'Statee',
+      type: FieldType.MULTI_SELECT,
+      defaultValue: null,
+      description: '',
+      icon: 'IconTag',
+      isNullable: true,
+      options: [
+        {
+          id: '7a3c64f4-caca-4687-a0d5-55c396a56b20',
+          color: 'red',
+          position: 1,
+          label: 'Red',
+          value: 'RED',
+        },
+      ],
+    }
+
+  ],
+});
