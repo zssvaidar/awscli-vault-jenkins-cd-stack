@@ -2,13 +2,9 @@ export VAULT_ADDR="http://127.0.0.1:8200"
 
 
 VAULT_KV_PATH="${VAULT_KV_PATH:-secret/jenkins}"
-DATE="$(date +%Y-%m-%d)"
-
-DATE_NAME="$DATE_${NAME}"
-KEY_DIR="$SCRIPT_DIR/credentials/$DATE_NAME"
 SCRIPT_DIR=$(pwd)
 
-[[ "$NAME" =~ ^(create|delete|keys|ssm|network)$ ]] && { echo "error: invalid name '$NAME'" >&2; exit 1; }
+[[ "$NAME" =~ ^(create|delete|keys|ssm|network|instances|s3|ami|instance-ami|egress|egress-balancer)$ ]] && { echo "error: invalid name '$NAME'" >&2; exit 1; }
 [[ -f "$STATE_FILE" ]] || { echo "no state file $STATE_FILE"; exit 1; }
 
 statefile() {
@@ -69,7 +65,7 @@ delete() {
     source $STATE_FILE
 
     echo $AWS_REGION $DATE_NAME $VAULT_PATH
-    
+
     local key_dir="$SCRIPT_DIR/credentials/$DATE_NAME"
 
     if [[ -d "$key_dir" ]]; then
