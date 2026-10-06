@@ -15,6 +15,14 @@ RUN apt-get update && \
         maven \
     && rm -rf /var/lib/apt/lists/*
 
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
+
+    RUN curl -fsSL https://bun.sh/install | bash \
+    && mv /root/.bun /opt/bun \
+    && ln -s /opt/bun/bin/bun /usr/local/bin/bun \
+    && ln -s /opt/bun/bin/bunx /usr/local/bin/bunx
+
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && \
     ./aws/install

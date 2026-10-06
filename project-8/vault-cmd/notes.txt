@@ -19,7 +19,7 @@ vault write aws/config/root \
 
 vault write aws/roles/jenkins \
     credential_type="assumed_role" \
-    role_arns="arn:aws:iam::NNNNNNNNNNNN:role/jenkins-role"
+    role_arns="arn:aws:iam::142369633239:role/jenkins-role"
 
 # after running aws/creds/jenkins starts working
 # vault read aws/creds/jenkins

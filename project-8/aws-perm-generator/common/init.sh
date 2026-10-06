@@ -42,8 +42,20 @@ create_role() {
         --policy-arn arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
 
         aws iam attach-role-policy \
-        --role-name $ROLE_NAME \
-        --policy-arn arn:aws:iam::aws:policy/AmazonRDSFullAccess
+            --role-name $ROLE_NAME \
+            --policy-arn arn:aws:iam::aws:policy/AmazonRDSFullAccess
+
+        aws iam attach-role-policy \
+            --role-name $ROLE_NAME \
+            --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
+
+        aws iam attach-role-policy \
+            --role-name $ROLE_NAME \
+            --policy-arn arn:aws:iam::aws:policy/AmazonSSMFullAccess
+
+        aws iam attach-role-policy \
+            --role-name $ROLE_NAME \
+            --policy-arn arn:aws:iam::aws:policy/ResourceGroupsandTagEditorFullAccess
 
         echo set ec2, rds access to role: $ROLE_NAME
     fi
