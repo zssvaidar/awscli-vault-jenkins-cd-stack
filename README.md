@@ -1,11 +1,23 @@
 ## agent generated docs for understanding internals) project itself is written by me
 ## purpose of this project is creation of my CD stack
 ## TODO's:
-### - division of jenkins pipeline into deployment scripts
-### - configuring ec2, ecs instance
+### - ecs instance
 ### - service management, alert service down
 ### - log collector like loki
 ### - running k8s,k3s on ec2
+### - ! manage_network deletes manager_egress_gateway's security group on delete
+
+## Done
+### - managing create/destroy ec2, nat instance, gateway instance with nginx
+#### 1) manage_ami, manage_instance_ami for creating number of instances
+### - division of jenkins pipeline into deployment/build script
+#### jenkins pipeline does: 
+#### 1) utilizes preconfigured agent project-8/jenkins-api-server-agent/agent/Dockerfile
+#### 2) runs build.sh 
+#### 3) creates on s3 artifact idx_hash.tar
+#### 4) through ssm runs latest deploy.sh from s3 on target instances by RESOURCE_GROUP_NAME
+#### 5) new project lands on /opt/app/current /opt/app/releases
+
 
 # AWS CLI + Vault + Jenkins CD Stack
 
