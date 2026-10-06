@@ -6,7 +6,7 @@ sudo docker push zssvaid/node-app:0.1
 
 vault policy write ec2-agents-read wrapper/jenkins-ec2-agents-policy.hcl
 
-vault policy write jenkins wrapper/policies/jenkins-vault.hcl
+VAULT_ADDR=http://127.0.0.1:8200 vault policy write jenkins wrapper/policies/jenkins-vault.hcl
 
 vault secrets enable -path=secret kv-v2
 
@@ -16,3 +16,12 @@ vault write auth/approle/role/jenkins \
     token_policies="jenkins" \
     token_ttl="1h" \
     token_max_ttl="4h"
+
+vault read auth/approle/role/jenkins/role-id
+vault write -f auth/approle/role/jenkins/secret-id
+
+vault write auth/approle/login \
+  role_id="$ROLE_ID" \
+  secret_id="$SECRET_ID"
+
+vault read aws/creds/jenkins
